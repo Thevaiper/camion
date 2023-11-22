@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Inicio de sesión</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> <!-- Agrega tu propio archivo CSS para personalizar el diseño -->
+    <script src="https://kit.fontawesome.com/ed7274d2ff.js" crossorigin="anonymous"></script>
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #343a40 !important;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            color: #fff !important;
+        }
+
+        .btn-login {
+            background-color: #007bff !important;
+        }
+
+        .btn-login:hover {
+            background-color: #0056b3 !important;
+        }
+
+        .btn-ruta {
+            background-color: #28a745 !important;
+        }
+
+        .btn-ruta:hover {
+            background-color: #1d9239 !important;
+        }
+
+        .ruta-info {
+            text-align: center;
+        }
+
+        .ruta-info h2 {
+            font-size: 22px;
+        }
+
+        .ruta-info p {
+            font-size: 16px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .custom-image {
+    max-width: 1920px; /* Define el ancho máximo deseado */
+    width: 100%; /* Asegura que la imagen se ajuste al contenedor */
+    height: auto; /* Mantiene la proporción original de la imagen */
+    max-height: 500px; /* Define la altura máxima deseada */
+}
+.boton-gris {
+        background-color:  #bce0f1; /* Color gris que prefieras */
+        color: #000000; /* Color del texto */
+        border: none;
+        padding: 10px 20px; /* Ajusta el tamaño del botón */
+        border-radius: 5px; /* Añade esquinas redondeadas si deseas */
+        margin-right: 10px; /* Espacio entre botones */
+        text-decoration: none; /* Elimina subrayado enlaces */
+    }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='logo.jpg') }}" class="me-2" style="width: 50px; height: 50px;">
+                Transporte Lobos Blancos
+            </a>
+            <!-- Botones en el lado derecho con estilo de botón -->
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary" href="{{ url_for('login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-success" href="{{ url_for('formulario') }}">Registrar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary " href="https://sgei.mx/upvt/(S(flh0rofpt1f4yl1m10i5twnm))/inicio7.aspx" target="_blank">SGEI</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary" href="https://intranet.sgei.mx/upvt/(S(mhe2rqwh2zesjtkonh1h5vtq))/inicio7.aspx" target="_blank">INTRANET</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-danger">
+        {{ messages[0] }}
+      </div>
+    {% endif %}
+    {% endwith %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Inicio de sesión</h5>
+                        <img src="{{ url_for('static', filename='upvt.jpg') }}" alt="logo" class="img-fluid mb-3">
+                        <form method="post">
+                            <div class="mb-3">
+                                <label for="id_login" class="form-label"><i class="fa-regular fa-user"></i>Matrícula</label>
+                                <input type="text" class="form-control" id="id_login" name="id_login" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contra" class="form-label"><i class="fa-solid fa-lock"></i>Contraseña:</label>
+                                <input type="password" class="form-control" id="contra" name="contra" required>
+                            </div>
+                            <center><button type="submit" class="btn btn-primary">Iniciar sesión</button><br><br></center>
+                            <center><a href="{{ url_for('formulario') }}" class="btn btn-primary">Registrar</a></center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

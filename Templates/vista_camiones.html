@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+      /* Estilos personalizados */
+      body {
+          background-color: #f8f9fa;
+      }
+
+      .navbar {
+          background-color: #343a40 !important;
+      }
+
+      .navbar-brand {
+          font-size: 24px;
+          color: #fff !important;
+      }
+
+      .btn-login {
+          background-color: #007bff !important;
+      }
+
+      .btn-login:hover {
+          background-color: #0056b3 !important;
+      }
+
+      .btn-ruta {
+          background-color: #28a745 !important;
+      }
+
+      .btn-ruta:hover {
+          background-color: #1d9239 !important;
+      }
+
+      .ruta-info {
+          text-align: center;
+      }
+
+      .ruta-info h2 {
+          font-size: 22px;
+      }
+
+      .ruta-info p {
+          font-size: 16px;
+      }
+
+      .footer {
+          background-color: #343a40;
+          color: #fff;
+          text-align: center;
+          padding: 10px 0;
+      }
+      .custom-image {
+  max-width: 1920px; /* Define el ancho máximo deseado */
+  width: 100%; /* Asegura que la imagen se ajuste al contenedor */
+  height: auto; /* Mantiene la proporción original de la imagen */
+  max-height: 500px; /* Define la altura máxima deseada */
+}
+
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('index_admin') }}">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" class="me-2" style="width: 50px; height: 50px;">
+        Transporte Lobos Blancos
+    </a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ruta</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{{ url_for('index_admin') }}">Rutas</a>
+                  <a class="dropdown-item" href="{{ url_for('formulario_ruta') }}">Crear ruta</a>
+                </div>
+              </li>
+            
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Camiones</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{{ url_for('vista_camiones') }}">Camiones</a>
+                  <a class="dropdown-item" href="{{ url_for('formulario_camion') }}">Nuevo camion</a>
+                </div>
+              </li>
+              
+
+            
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Puntos</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{{ url_for('ruta') }}">Ver Ruta</a>
+                  <a class="dropdown-item" href="{{ url_for('formulario_ruta') }}">Agregar ruta</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn btn-success" href="{{ url_for('index') }}">Salir</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<br>
+<br>
+<br>
+<center><h1>Camiones</h1></center>
+<br>
+<br>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr class="table-light">
+        <th scope="col">ID Camión</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Imagen</th>
+        <th scope="col">Fecha de Creación</th>
+        <th scope="col">Fecha de Modificación</th>
+        <th scope="col">Ciudad</th>
+        <th scope="col">Acciones</th> <!-- Columna para botones -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>A</td>
+        <td><img src="{{ url_for('static', filename='camion a.jpg') }}" alt="Camión A"></td>
+        <td>2023-09-13</td>
+        <td>2023-09-13</td>
+        <td>Ciudad de Toluca</td>
+        <td>
+          <!-- Botones de acciones -->
+          <a href="{{ url_for('formulario_camion') }}" class="btn btn-primary">Modificar</a>
+          <a href="#" class="btn btn-danger">Eliminar</a>
+          <a href="#" class="btn btn-warning">Suspender</a>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>B</td>
+        <td><img src="{{ url_for('static', filename='camion b.jpg') }}" alt="Camión B"></td>
+        <td>2023-09-14</td>
+        <td>2023-09-14</td>
+        <td>Ciudad de Metepec</td>
+        <td>
+          <!-- Botones de acciones -->
+          <a href="{{ url_for('formulario_camion') }}" class="btn btn-primary">Modificar</a>
+          <a href="#" class="btn btn-danger">Eliminar</a>
+          <a href="#" class="btn btn-warning">Suspender</a>
+        </td>
+      </tr>
+      <!-- Puedes agregar más filas aquí con botones -->
+    </tbody>
+  </table>
+  
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

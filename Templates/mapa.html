@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapa de Google</title>
+    <!-- Incluye los estilos CSS de Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKFI1U7-2Xiq6Re_gbz4oGplCVtg5ml4w"></script>
+    <style>
+        html, body, #map-container {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%; /* Ajustar la altura del mapa como desees */
+            width: 70%; /* Ajustar el ancho del mapa */
+            float: left; /* Coloca el mapa a la izquierda */
+        }
+        .options-container {
+            height: 100%;
+            width: 30%; /* Ancho del panel de opciones */
+            background-color: #f8f9fa; /* Color de fondo del panel de opciones */
+            float: left; /* Coloca el panel a la izquierda */
+            padding: 20px;
+        }
+        .options-container select, .options-container button {
+            margin: 10px 0;
+        }
+    </style>
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #343a40 !important;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            color: #fff !important;
+        }
+
+        .btn-login {
+            background-color: #007bff !important;
+        }
+
+        .btn-login:hover {
+            background-color: #0056b3 !important;
+        }
+
+        .btn-ruta {
+            background-color: #28a745 !important;
+        }
+
+        .btn-ruta:hover {
+            background-color: #1d9239 !important;
+        }
+
+        .ruta-info {
+            text-align: center;
+        }
+
+        .ruta-info h2 {
+            font-size: 22px;
+        }
+
+        .ruta-info p {
+            font-size: 16px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        
+        .btn-danger {
+        background-color: #dc3545; /* Color rojo */
+        color: #fff; /* Color del texto */
+        }
+
+        .custom-image {
+        max-width: 1920px; /* Define el ancho máximo deseado */
+        width: 100%; /* Asegura que la imagen se ajuste al contenedor */
+        height: auto; /* Mantiene la proporción original de la imagen */
+        max-height: 500px; /* Define la altura máxima deseada */
+}
+
+.boton-gris {
+        background-color:  #bce0f1; /* Color gris que prefieras */
+        color: #000000; /* Color del texto */
+        border: none;
+        padding: 10px 20px; /* Ajusta el tamaño del botón */
+        border-radius: 5px; /* Añade esquinas redondeadas si deseas */
+        margin-right: 10px; /* Espacio entre botones */
+        text-decoration: none; /* Elimina subrayado enlaces */
+    }
+
+    html, body, #map-container {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%; /* Ajustar la altura del mapa como desees */
+            width: 70%; /* Ajustar el ancho del mapa */
+            float: left; /* Coloca el mapa a la izquierda */
+        }
+        .options-container {
+            height: 100%;
+            width: 30%; /* Ancho del panel de opciones */
+            background-color: #f8f9fa; /* Color de fondo del panel de opciones */
+            float: left; /* Coloca el panel a la izquierda */
+            padding: 20px;
+        }
+        .options-container select, .options-container button {
+            margin: 10px 0;
+        }
+    </style>
+    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='logo.jpg') }}" class="me-2" style="width: 50px; height: 50px;">
+            Transporte Lobos Blancos
+          </a>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ruta</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="{{ url_for('index_admin') }}">Rutas</a>
+                      <a class="dropdown-item" href="{{ url_for('formulario_ruta') }}">Crear ruta</a>
+                    </div>
+                  </li>
+                
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Camiones</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="{{ url_for('vista_camiones') }}">Camiones</a>
+                      <a class="dropdown-item" href="{{ url_for('formulario_camion') }}">Nuevo camion</a>
+                    </div>
+                  </li>
+                 
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Puntos</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="{{ url_for('ruta') }}">Ver Rutas</a>
+                      <a class="dropdown-item" href="{{ url_for('formulario_ruta') }}">Agregar rutas</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link btn btn-success" href="{{ url_for('index') }}">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+
+    <div id="map-container">
+        <!-- Mapa de Google aquí -->
+        <div id="map"></div>
+        <div class="options-container">
+            <!-- Selección de otro punto y botón de cálculo de ruta -->
+            <h3>Seleccione una parada</h3>
+            <select id="otroPunto" class="form-control">
+                <option value="C" data-lat="19.2900953" data-lng="-99.6621329">Centro</option>
+                <option value="D" data-lat="19.2883918" data-lng="-99.6772993">Ex cama de piedra</option>
+                <option value="E" data-lat="19.2874261" data-lng="-99.7042463">Walmart</option>
+                <option value="F" data-lat="19.2934591" data-lng="-99.7207673">Desviacion</option>
+                <!-- Puedes agregar más opciones según sea necesario -->
+            </select>
+    
+            <button id="calcularRuta" class="btn btn-primary">Calcular Ruta</button>
+            <div id="notificacion" style="display: none;">
+                <!-- Notificación de proximidad -->
+                Estás cerca del camion.
+            </div>
+            <!-- Resultados debajo de la notificación -->
+            <div id="resultado"></div>
+            <div id="distanciaUsuario"></div>
+        </div>
+    </div>
+    
+    <script>
+        var map;
+        var directionsService;
+        var directionsRenderer;
+        var userCoords;
+    
+        
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 19.3417275, lng: -99.7411235},
+                zoom: 14
+            });
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer({
+                map: map
+            });
+    
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    userCoords = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+    
+                    var userMarker = new google.maps.Marker({
+                        position: userCoords,
+                        map: map,
+                        label: 'U'
+                    });
+                });
+            }
+        }
+    
+       // Función para obtener una posición aleatoria cercana
+function obtenerPosicionAleatoria(destinoLat, destinoLng) {
+    var radio = 0.01; // Puedes ajustar este valor para controlar la "cercanía"
+    var randomLat = destinoLat + (Math.random() - 0.5) * radio;
+    var randomLng = destinoLng + (Math.random() - 0.5) * radio;
+    return { lat: randomLat, lng: randomLng };
+}
+
+// Función para calcular la ruta
+function calcularRuta() {
+    var selectedOtroPunto = document.getElementById('otroPunto').value;
+
+    if (selectedOtroPunto === '') {
+        alert('Por favor, seleccione un punto.');
+        return;
+    }
+
+    var destinoLat, destinoLng;
+
+    // Puedes agregar más casos según sea necesario
+    switch (selectedOtroPunto) {
+        case 'C':
+            destinoLat = 19.2900953;
+            destinoLng = -99.6621329;
+            break;
+        case 'D':
+            destinoLat = 19.2883918;
+            destinoLng = -99.6772993;
+            break;
+        case 'E':
+            destinoLat = 19.2874261;
+            destinoLng = -99.7042463;
+            break;
+        case 'F':
+            destinoLat = 19.2934591;
+            destinoLng = -99.7207673;
+            break;
+        // Agrega más casos según sea necesario
+        default:
+            alert('Punto no reconocido.');
+            return;
+    }
+
+    // Obtener una posición aleatoria cercana
+    var camionPosicion = obtenerPosicionAleatoria(destinoLat, destinoLng);
+
+    // Resto del código...
+
+    
+            var destinationCoords = { lat: destinoLat, lng: destinoLng };
+    
+            var request = {
+                origin: userCoords,
+                destination: destinationCoords,
+                travelMode: 'DRIVING'
+            };
+    
+            directionsService.route(request, function(response, status) {
+                if (status == 'OK') {
+                    directionsRenderer.setDirections(response);
+                    var route = response.routes[0];
+                    var distancia = 0;
+                    var duracion = 0;
+    
+                    for (var i = 0; i < route.legs.length; i++) {
+                        distancia += route.legs[i].distance.value;
+                        duracion += route.legs[i].duration.value;
+                    }
+    
+                    distancia = (distancia / 1000).toFixed(2);
+                    duracion = (duracion / 60).toFixed(0);
+    
+                    var distanciaUsuario = google.maps.geometry.spherical.computeDistanceBetween(
+                        new google.maps.LatLng(userCoords.lat, userCoords.lng),
+                        new google.maps.LatLng(destinoLat, destinoLng)
+                    );
+                    distanciaUsuario = (distanciaUsuario / 1000).toFixed(2);
+    
+                    document.getElementById('resultado').innerHTML = 'Distancia: ' + distancia + ' km<br>Duración: ' + duracion + ' minutos';
+                    document.getElementById('distanciaUsuario').innerHTML = 'Distancia desde tu ubicación: ' + distanciaUsuario + ' km';
+    
+                    if (duracion <= 5) {
+                        alert('Estás cerca del camion. El tiempo estimado es de ' + duracion + ' minutos.');
+                    } else {
+                        alert('No estás cerca del punto.');
+                    }
+                }
+            });
+        }
+    
+        google.maps.event.addDomListener(window, 'load', initMap);
+        document.getElementById('calcularRuta').addEventListener('click', calcularRuta);
+    </script>
+    
+    </body>
+    </html>

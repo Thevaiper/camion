@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Usuarios</title>
+</head>
+<body>
+    <h1>Consulta de Usuarios</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Fecha de Creación</th>
+                <th>Fecha de Modificación</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }}</td> <!-- ID -->
+                    <td>{{ row[1] }}</td> <!-- Nombre -->
+                    <td>{{ row[2] }}</td> <!-- Apellidos -->
+                    <td>{{ row[3] }}</td> <!-- Correo -->
+                    <td>{{ row[5] }}</td> <!-- Rol -->
+                    <td>{{ row[6] }}</td> <!-- Fecha de Creación -->
+                    <td>{{ row[7] }}</td> <!-- Fecha de Modificación -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

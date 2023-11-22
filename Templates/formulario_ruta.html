@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulario de Ruta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #343a40 !important;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            color: #fff !important;
+        }
+
+        .btn-login {
+            background-color: #007bff !important;
+        }
+
+        .btn-login:hover {
+            background-color: #0056b3 !important;
+        }
+
+        .btn-ruta {
+            background-color: #28a745 !important;
+        }
+
+        .btn-ruta:hover {
+            background-color: #1d9239 !important;
+        }
+
+        .ruta-info {
+            text-align: center;
+        }
+
+        .ruta-info h2 {
+            font-size: 22px;
+        }
+
+        .ruta-info p {
+            font-size: 16px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .custom-image {
+            max-width: 1920px;
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='logo.jpg') }}" class="me-2" style="width: 50px; height: 50px;">
+            Transporte Lobos Blancos
+        </a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ruta</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ url_for('index_admin') }}">Rutas</a>
+                    <a class="dropdown-item" href="{{ url_for('formulario_ruta') }}">Crear ruta</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Camiones</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ url_for('vista_camiones') }}">Camiones</a>
+                    <a class="dropdown-item" href="{{ url_for('formulario_camion') }}">Nuevo camión</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Puntos</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ url_for('ruta') }}">Ver Ruta</a>
+                    <a class="dropdown-item" href="{{ url_for('formulario_ruta') }}">Agregar Ruta</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-success" href="{{ url_for('index') }}">Salir</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1>Nueva ruta</h1>
+    <form method="POST" action="/guardar_ruta">
+        <div class="mb-3">
+            <label for="id_ruta" class="form-label">IdRuta</label>
+            <input type="text" class="form-control" id="id_ruta" name="id_ruta" required>
+        </div>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio</label>
+            <input type="text" class="form-control" id="precio" name="precio" required>
+        </div>
+        <div class="mb-3">
+            <label for="fecha_creacion" class="form-label">FechaCreacion</label>
+            <input type="text" class="form-control" id="fecha_creacion" name="fecha_creacion" required>
+        </div>
+        <div class="mb-3">
+            <label for="fecha_modificacion" class="form-label">FechaModificacion</label>
+            <input type="text" class="form-control" id="fecha_modificacion" name="fecha_modificacion" required>
+        </div>
+        <div class="mb-3">
+            <label for="id_login" class="form-label">Usuario</label>
+            <select class="form-select" id="id_login" name="id_login" required>
+                {% for usuario in usuarios %}
+                    <option value="{{ usuario.IdLogin }}">{{ usuario.Nombre }} {{ usuario.Apellidos }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
